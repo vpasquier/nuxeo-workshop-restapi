@@ -7,28 +7,38 @@ var documentRoot = "/default-domain/workspaces/workspace";
 
 // Configure Nuxeo Client
 RestAPI.config = function () {
+  //Instantiate Nuxeo Client
+  var client = new nuxeo.Client({
+    baseURL: 'http://localhost:8080/nuxeo',
+    username: 'Administrator',
+    password: 'Administrator'
+  })
 
+  // Client schema and timeout configuration
+  client.schema("dublincore");
+  client.timeout(3000);
+  return client;
 }
 
 ////////////////////////////// CURRENT USER
 
 // Callback: callbackCurrentUser
 RestAPI.getCurrentUser = function () {
-
+  this.client.request('user/Administrator').get(callbackCurrentUser);
 }
 
 ////////////////////////////// EXECUTE QUERY
 
 // Callback: callbackQuery
 RestAPI.executeQuery = function (query) {
-
+  this.client.request('query/?query=' + query).get(callbackQuery);
 }
 
 ////////////////////////////// DISPLAY WORKSPACE CHILDREN
 
 // Callback: callbackRootChildren
 RestAPI.getRootChildren = function () {
-
+  this.client.document(documentRoot).children(callbackRootChildren);
 }
 
 
@@ -36,41 +46,61 @@ RestAPI.getRootChildren = function () {
 
 // Callback: callbackFetchDocument
 RestAPI.fetchDocument = function (id) {
-
+  this.client.document(id).fetch(callbackFetchDocument);
+  //this.client.document(id).schemas(["common","dublincore"]).fetch(callbackFetchDocument);
+  //this.client.document(id).header('X-NXContext-Category', 'acls').fetch(callbackFetchDocument);
 }
 
 ////////////////////////////// UPDATE DOCUMENT
 
 // Callback: callbackUpdateDocument
 RestAPI.updateDocument = function (map) {
-
+  this.currentDocument.set(map).save(callbackUpdateDocument)
 }
 
 ////////////////////////////// CREATE DOCUMENT
 
 // Callback: callbackCreateDocument
 RestAPI.createDocument = function (map) {
-
+  this.client.document(documentRoot)
+    .create({
+      type: 'File',
+      name: map["dc:title"],
+      properties: {
+        "dc:title": map["dc:title"],
+        "dc:description": map["dc:description"],
+        "dc:nature": map["dc:nature"],
+        "dc:language": map["dc:language"]
+      }
+    }, callbackCreateDocument);
 }
 
 ////////////////////////////// DELETE DOCUMENT
 
 RestAPI.deleteDocument = function () {
-
+  this.currentDocument.delete(callbackDeleteDocument);
 }
 
 ////////////////////////////// FILE IMPORT
 
 // Callback: callbackImportFile
 RestAPI.importFile = function (file) {
-
+  var uploader = this.client.operation("FileManager.Import").context({ currentDocument: documentRoot }).uploader();
+  uploader.uploadFile(file, function () {
+    uploader.execute(callbackImportFile);
+  });
 }
 
 ////////////////////////////// ATTACH BLOB
 
 // Callback: callbackAttachBlob
 RestAPI.attachBlob = function (file) {
-  
+  var uploader = this.client.operation("Blob.Attach")
+    .params({ document: this.currentDocument.uid, save: true,
+      xpath: "file:content"}).uploader();
+  uploader.uploadFile(file, function () {
+    uploader.execute(callbackAttachBlob)
+  });
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
