@@ -11,15 +11,17 @@ The library can work in a browser (jQuery), or in Node.js, using the same API.
 
 ## Setup
 
-- Go to `nuxeo/bin` folder (or `nuxeo\bin` for windows:))
-- Execute `./nuxeoctl console`
-- Navigate with your web browser to `http://localhost:8080/nuxeo/welcome.html`
-- Then to the client app: `http://localhost:8080/nuxeo/restapi.html`
+- Get a nuxeo distribution.
+- Move sample-1.0-SNAPSHOT.jar into `NUXEO_HOME/nxserver/bundles` folder.
+- Go to `NUXEO_HOME/bin` folder.
+- Execute `./nuxeoctl console`.
+- Navigate with your web browser to `http://localhost:8080/nuxeo/welcome.html`.
+- Then to the client app: `http://localhost:8080/nuxeo/restapi.html`.
 
 Finally
 
 - Open/Edit `nuxeo/nxserver/nuxeo.war/restapi.js` (or `nuxeo\nxserver\nuxeo.war\restapi.js`)
-- And refresh `http://localhost:8080/nuxeo/restapi.html` 
+- And refresh `http://localhost:8080/nuxeo/restapi.html` after coding.
 
 ## Initialization
 
