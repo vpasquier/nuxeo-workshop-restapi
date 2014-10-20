@@ -164,7 +164,7 @@ function callbackQuery(error, result) {
     throwError("Cannot run query -> " + error);
     throw error;
   }
-  console.log('Root document has ' + result.entries.length + ' children');
+  console.log('Query has ' + result.entries.length + ' results');
   var template = $('#children').html();
   Mustache.parse(template);
   var rendered = Mustache.render(template, {children: result.entries});
