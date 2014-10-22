@@ -23,6 +23,23 @@ Finally
 - Open/Edit `nuxeo/nxserver/nuxeo.war/restapi.js` (or `nuxeo\nxserver\nuxeo.war\restapi.js`)
 - And refresh `http://localhost:8080/nuxeo/restapi.html` after coding.
 
+Warning
+
+If you use the sample 'outside' Nuxeo server, you have to create a `cors-config.xml` into `NUXEO_HOME/nxserver/config` folder with the following contribution:
+
+```
+<?xml version="1.0"?>
+<component name="org.nuxeo.cors">
+  <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+    <corsConfig name="foobar" allowOrigin="*" supportedMethods="GET, POST, PUT, DELETE, HEAD, OPTIONS">
+      <pattern>.*</pattern>
+    </corsConfig>
+  </extension>
+</component>
+```
+
+in order to resolve CORS issues.
+
 ## Initialization
 
 #### Create and return a Client in `RestAPI.config = function ()`
