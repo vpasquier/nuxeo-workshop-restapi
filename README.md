@@ -17,6 +17,7 @@ Distribution and Dev mode setup:
 - Go to `NUXEO_HOME/bin` folder.
 - Execute `./nuxeoctl register`.
 - Install Web UI at `./nuxeoctl mp-install nuxeo-web-ui`.
+- Install JSF UI at `./nuxeoctl mp-install nuxeo-jsf-ui`.
 - Open `NUXEO_HOME/bin/nuxeo.conf` file.
 - Remove the line `wizard.done=false`.
 - Uncomment `org.nuxeo.dev=true`.
