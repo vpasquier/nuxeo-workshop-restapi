@@ -11,9 +11,18 @@ The library can work in a browser (jQuery), or in Node.js, using the same API.
 
 ## Setup
 
+Distribution and Dev mode setup:
 - Get a nuxeo distribution.
-- Move sample-1.0-SNAPSHOT.jar into `NUXEO_HOME/nxserver/bundles` folder.
+- Move the client jar into `NUXEO_HOME/nxserver/bundles` folder.
 - Go to `NUXEO_HOME/bin` folder.
+- Execute `./nuxeoctl register`.
+- Install Web UI at `./nuxeoctl mp-install nuxeo-web-ui`.
+- Open `NUXEO_HOME/bin/nuxeo.conf` file.
+- Remove the line `wizard.done=false`.
+- Uncomment `org.nuxeo.dev=true`.
+- Install the Nuxeo chrome extension.
+
+Nuxeo Execution:
 - Execute `./nuxeoctl console`.
 - Navigate with your web browser to `http://localhost:8080/nuxeo/restapi/index.html`.
 - Then to the client app: `http://localhost:8080/nuxeo/restapi/restapi.html`.
