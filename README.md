@@ -65,8 +65,10 @@ To be able to make API calls on a Nuxeo server, you need to create a `Client` ob
 ```javascript
 var client = new nuxeo.Client({
   baseURL: 'http://demo.nuxeo.com/nuxeo',
-  username: 'Administrator',
-  password: 'Administrator'
+  auth: {
+      username: 'Administrator',
+      password: 'Administrator'
+    }
 })
 
   client.schema("dublincore");
