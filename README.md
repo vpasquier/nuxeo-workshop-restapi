@@ -13,7 +13,7 @@ The library can work in a browser (jQuery), or in Node.js, using the same API.
 
 Distribution and Dev mode setup:
 - Get a nuxeo distribution.
-- Move the client jar into `NUXEO_HOME/nxserver/bundles` folder.
+- Move the client jar `nuxeo-training-jsclient-workshop-1.0-SNAPSHOT.jar` into `NUXEO_HOME/nxserver/bundles` folder.
 - Go to `NUXEO_HOME/bin` folder.
 - Execute `./nuxeoctl register`.
 - Install Web UI at `./nuxeoctl mp-install nuxeo-web-ui`.
@@ -23,17 +23,23 @@ Distribution and Dev mode setup:
 - Uncomment `org.nuxeo.dev=true`.
 - Install the Nuxeo chrome extension.
 
-Nuxeo Execution:
+Nuxeo Execution and Studio custom bundle setup:
 - Execute `./nuxeoctl console`.
-- Navigate with your web browser to `http://localhost:8080/nuxeo/restapi/index.html`.
-- Then to the client app: `http://localhost:8080/nuxeo/restapi/restapi.html`.
+- Create into your project one document type:
+  - Named `Meeting`
+  - With one metadata `participants` String multivalued
+  - And one metadata `meetingPublisher` complex containing `firstName` and `lastName` String
+- Hotreload
 
 Finally
-
+- Navigate with your web browser to `http://localhost:8080/nuxeo/restapi/index.html`.
+- Then to the client app: `http://localhost:8080/nuxeo/restapi/restapi.html`.
 - Open/Edit `nuxeo/nxserver/nuxeo.war/restapi/restapi.js` (or `nuxeo\nxserver\nuxeo.war\restapi\restapi.js`)
 - And refresh `http://localhost:8080/nuxeo/restapi/restapi.html` after coding.
 
 Warning
+
+Don't hotreload or restart your server during the workshop, you could loose your work done.
 
 If you use the sample 'outside' Nuxeo server, you have to create a `cors-config.xml` into `NUXEO_HOME/nxserver/config` folder with the following contribution:
 
